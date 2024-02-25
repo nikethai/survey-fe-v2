@@ -1,63 +1,77 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { ActionFunctionArgs, json, MetaFunction } from "@remix-run/node";
-import { getValidatedFormData } from "remix-hook-form";
-import { z } from "zod";
+import { MetaFunction } from "@remix-run/node";
+import { Table } from "react-daisyui";
 
-import { Form } from "~/templates/form";
+import { InfoCard, TeamCard } from "~/components/molecules";
+import { infoCardData } from "~/data/infoCardData";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "DynaCraft" },
+    { name: "description", content: "Welcome to DynaCraft!" },
   ];
-};
-
-const schema = z.object({
-  name: z.string().min(1),
-  email: z.string().email().min(1),
-});
-
-type FormData = z.infer<typeof schema>;
-
-const resolver = zodResolver(schema);
-export const action = async ({ request }: ActionFunctionArgs) => {
-  const {
-    errors,
-    data,
-    receivedValues: defaultValues,
-  } = await getValidatedFormData<FormData>(request, resolver);
-  if (errors) {
-    // The keys "errors" and "defaultValue" are picked up automatically by useRemixForm
-    return json({ errors, defaultValues });
-  }
-
-  console.log(data);
-
-  // Do something with the data
-  return json(data);
 };
 
 export default function Index() {
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <h1>Welcome to Remix</h1>
-      <Form<FormData>>
-        {({ register, formState: { errors } }) => (
-          <>
-            <label>
-              Name:
-              <input {...register("name")} />
-              {errors.name && <p>{errors.name.message}</p>}
-            </label>
-            <label>
-              Email:
-              <input {...register("email")} />
-              {errors.email && <p>{errors.email.message}</p>}
-            </label>
-            <button type="submit">Submit</button>
-          </>
-        )}
-      </Form>
+    <div className="space-y-6 p-4">
+      <div className="grid grid-flow-row grid-cols-3 gap-x-3">
+        {infoCardData.map((data, index) => (
+          <InfoCard
+            key={index}
+            field={data.field}
+            fieldIcon={data.fieldIcon}
+            data={data.data}
+            subData={data.subData}
+          />
+        ))}
+      </div>
+      <div>
+        <h1 className="text-[28px] font-bold">Projects</h1>
+        <div className="flex w-full">
+          <div className="basis-[75%]">
+            <div className="overflow-x-auto">
+              <Table>
+                <Table.Head>
+                  <span />
+                  <span>Name</span>
+                  <span>Job</span>
+                  <span>Speciality</span>
+                </Table.Head>
+
+                <Table.Body>
+                  <Table.Row>
+                    <span>1</span>
+                    <span>Rhodes Island</span>
+                    <span>Medical drug</span>
+                    <span>Fighting</span>
+                  </Table.Row>
+
+                  <Table.Row>
+                    <span>2</span>
+                    <span>Victoria</span>
+                    <span>Football</span>
+                    <span>War</span>
+                  </Table.Row>
+                </Table.Body>
+              </Table>
+            </div>
+          </div>
+          <div className="basis-[25%] space-y-4">
+            <TeamCard
+              title="Project A"
+              progress={82}
+              startDate="12/12/2023"
+              endDate="14/12/2024"
+            />
+            <TeamCard
+              title="Project B"
+              progress={75}
+              startDate="12/12/2023"
+              endDate="14/12/2024"
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
