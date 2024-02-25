@@ -22,7 +22,74 @@ module.exports = {
 
   // Base config
   extends: ["eslint:recommended"],
+  plugins: ["@typescript-eslint", "unused-imports", "simple-import-sort"],
+  rules: {
+    // "no-undef": "error",
+    // "no-unused-vars": "warn",
+    "no-duplicate-imports": "warn",
+    // "import/no-unresolved": "error",
+    "react/react-in-jsx-scope": "off",
+    "react/no-unknown-property": "error",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "react/no-unescaped-entities": "off",
+    "react/display-name": "off",
+    "react/jsx-curly-brace-presence": [
+      "warn",
+      { props: "never", children: "never" },
+    ],
 
+    //#region  //*=========== Unused Import ===========
+    "unused-imports/no-unused-imports": "warn",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        vars: "all",
+        varsIgnorePattern: "^_",
+        args: "after-used",
+        argsIgnorePattern: "^_",
+      },
+    ],
+    //#endregion  //*======== Unused Import ===========
+
+    //#region  //*=========== Import Sort ===========
+    "simple-import-sort/exports": "warn",
+    "simple-import-sort/imports": [
+      "warn",
+      {
+        groups: [
+          // ext library & side effect imports
+          ["^@?\\w", "^\\u0000"],
+          // {s}css files
+          ["^.+\\.s?css$"],
+          // Lib and hooks
+          ["^@/lib", "^@/hooks"],
+          // static data
+          ["^@/data"],
+          // components
+          ["^@/components", "^@/container"],
+          // zustand store
+          ["^@/store"],
+          // Other imports
+          ["^@/"],
+          // relative paths up until 3 level
+          [
+            "^\\./?$",
+            "^\\.(?!/?$)",
+            "^\\.\\./?$",
+            "^\\.\\.(?!/?$)",
+            "^\\.\\./\\.\\./?$",
+            "^\\.\\./\\.\\.(?!/?$)",
+            "^\\.\\./\\.\\./\\.\\./?$",
+            "^\\.\\./\\.\\./\\.\\.(?!/?$)",
+          ],
+          ["^@/types"],
+          // other that didnt fit in
+          ["^"],
+        ],
+      },
+    ],
+    //#endregion  //*======== Import Sort ===========
+  },
   overrides: [
     // React
     {
@@ -54,6 +121,10 @@ module.exports = {
       files: ["**/*.{ts,tsx}"],
       plugins: ["@typescript-eslint", "import"],
       parser: "@typescript-eslint/parser",
+      rules: {
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+      },
       settings: {
         "import/internal-regex": "^~/",
         "import/resolver": {
