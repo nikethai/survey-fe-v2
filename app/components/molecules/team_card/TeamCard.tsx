@@ -19,7 +19,7 @@ export const TeamCard: FC<ITeamCardProps> = ({
 }) => {
   return (
     <Card
-      className={cn("shadow-sm", className)}
+      className={cn("cursor-pointer shadow-md", className)}
       titleClassName="text-[16px]"
       bodyClassName="p-3 text-[14px]"
       title={

@@ -23,7 +23,9 @@ export const MenuItem = () => {
   ) => (
     <Menu.Item key={item.name + "-" + index}>
       <NavLink
-        className={({ isActive }) => cn("px-3", isActive && "bg-secondary")}
+        className={({ isActive }) =>
+          cn("px-3 active:!bg-blue-500", isActive && "bg-secondary")
+        }
         to={item.href}
       >
         {item.icon && item.icon}

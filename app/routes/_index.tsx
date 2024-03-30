@@ -39,7 +39,7 @@ export default function Index() {
                 </Table.Head>
 
                 <Table.Body>
-                  <Table.Row>
+                  <Table.Row className="hover cursor-pointer">
                     <span>1</span>
                     <span>Rhodes Island</span>
                     <span>Medical drug</span>
