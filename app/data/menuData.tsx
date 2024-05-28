@@ -4,6 +4,7 @@ import {
   FaSheetPlastic,
   FaWpforms,
 } from "react-icons/fa6";
+import { GiCardDraw } from "react-icons/gi";
 import { RxDashboard } from "react-icons/rx";
 
 import { ROUTES } from "~/constants";
@@ -40,6 +41,22 @@ export const menuData: IMenuItem[] = [
     href: ROUTES.form,
     icon: <FaWpforms size={18} />,
     section: "menu",
+  },
+  {
+    name: "Card",
+    href: ROUTES.card,
+    icon: <GiCardDraw size={18} />,
+    section: "menu",
+    dropdownItems: [
+      {
+        name: "Stacking",
+        href: ROUTES.cardStack,
+      },
+      {
+        name: "Sliding",
+        href: ROUTES.cardSlide,
+      },
+    ],
   },
 
   // helper section

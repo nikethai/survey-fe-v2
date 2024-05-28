@@ -21,7 +21,7 @@
     "clsx": "^2.1.0",
     "daisyui": "^4.7.2",
     "dayjs": "^1.11.10",
-    "framer-motion": "^11.0.5",
+    "framer-motion": "^11.2.6",
     "immer": "^10.0.3",
     "isbot": "^4.1.0",
     "jotai": "^2.6.4",
